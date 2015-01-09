@@ -1,12 +1,13 @@
 
 package org.usfirst.frc.team1751.robot2015;
 
+import org.usfirst.frc.team1751.robot2015.commands.AutonomousCommand;
+import org.usfirst.frc.team1751.robot2015.subsystems.*;
+
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
-import org.usfirst.frc.team1751.robot2015.commands.AutonomousCommand;
-import org.usfirst.frc.team1751.robot2015.subsystems.Drivetrain;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -18,6 +19,8 @@ import org.usfirst.frc.team1751.robot2015.subsystems.Drivetrain;
 public class Robot extends IterativeRobot {
 
 	public static final Drivetrain drivetrain = new Drivetrain();
+	public static final Arms arms = new Arms();
+	public static final Elevator elevator = new Elevator();
 	public static OI oi;
 
     Command autonomousCommand;

@@ -13,6 +13,14 @@ public class RobotMap {
     public static int rightRear = 5;
     
     //Sensors
+    //Analog:
     public static int gyro = 0;
+    public static int pot = 1;
+    //Digital:
+    public static int elevTop = 0;
+    public static int elevBot = 1;
+    //Other motors
+    public static int armMotor = 0;
+    public static int elevatorMotor = 1;
     
 }

@@ -30,7 +30,7 @@ public class MecanumDrive extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	//some debug
-    	Robot.drivetrain.sendSpeeds();
+    	//Robot.drivetrain.sendSpeeds();
     	//get joystick values
     	double y = Robot.oi.getDriveStick().getY();
     	double x = Robot.oi.getDriveStick().getX();
@@ -41,8 +41,8 @@ public class MecanumDrive extends Command {
     	double theta = Math.atan2(y, x)/*+Robot.drivetrain.getAngle()*/;   //Uncomment for field-centric
     	//calculate voltage multipliers
     	double lf = speed*Math.sin(theta+(pi/4.0))+z;
-    	double lr = speed*Math.cos(theta+(pi/4.0))-z;
-    	double rf = speed*Math.cos(theta+(pi/4.0))+z;
+    	double rf = speed*Math.cos(theta+(pi/4.0))-z;
+    	double lr = speed*Math.cos(theta+(pi/4.0))+z;
     	double rr = speed*Math.sin(theta+(pi/4.0))-z;
     	
     	//make sure all values are within [-1,1]
