@@ -7,20 +7,21 @@ package org.usfirst.frc.team1751.robot2015;
  */
 public class RobotMap {
 	//CAN Bus:
-    public static int leftFront = 2;
-    public static int leftRear = 4;
-    public static int rightFront = 3;
-    public static int rightRear = 5;
+    public static final int leftFront = 2;
+    public static final int leftRear = 4;
+    public static final int rightFront = 3;
+    public static final int rightRear = 5;
     
     //Sensors
     //Analog:
-    public static int gyro = 0;
-    public static int pot = 1;
+    public static final int gyro = 0;
+    public static final int pot = 1;
     //Digital:
-    public static int elevTop = 0;
-    public static int elevBot = 1;
+    public static final int elevTop = 0;
+    public static final int elevBot = 1;
+    public static final int elevMid = 2;
     //Other motors
-    public static int armMotor = 0;
-    public static int elevatorMotor = 1;
+    public static final int armMotor = 0;
+    public static final int elevatorMotor = 1;
     
 }

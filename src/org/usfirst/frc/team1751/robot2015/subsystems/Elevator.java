@@ -1,6 +1,5 @@
 package org.usfirst.frc.team1751.robot2015.subsystems;
 
-import org.usfirst.frc.team1751.robot2015.Robot;
 import org.usfirst.frc.team1751.robot2015.RobotMap;
 import org.usfirst.frc.team1751.robot2015.commands.ElevatorControl;
 
@@ -14,6 +13,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class Elevator extends Subsystem {
     private DigitalInput top = new DigitalInput(RobotMap.elevTop);
 	private DigitalInput bot = new DigitalInput(RobotMap.elevBot);
+	private DigitalInput mid = new DigitalInput(RobotMap.elevMid);
     private Talon motor = new Talon(RobotMap.elevatorMotor);
 	
 	
@@ -40,6 +40,9 @@ public class Elevator extends Subsystem {
     }
     public boolean isBot(){
     	return bot.get();
+    }
+    public boolean isDoubleTote(){
+    	return mid.get();
     }
 }
 

@@ -7,9 +7,9 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class ElevatorControl extends Command {
+public class ElevatorToDoubleTote extends Command {
 
-    public ElevatorControl() {
+    public ElevatorToDoubleTote() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	requires(Robot.elevator);
@@ -17,17 +17,16 @@ public class ElevatorControl extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
+    	Robot.elevator.setMotor(1);
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	double val = Robot.oi.getShootStick().getY();
-    	Robot.elevator.setMotor(val);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+        return Robot.elevator.isDoubleTote();
     }
 
     // Called once after isFinished returns true

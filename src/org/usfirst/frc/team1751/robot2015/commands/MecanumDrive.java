@@ -8,11 +8,11 @@ import edu.wpi.first.wpilibj.command.Command;
  *
  */
 public class MecanumDrive extends Command {
-	private static final int codesPerRev = 360;
+	/*private static final int codesPerRev = 360;
 	private static final double p = .2;
 	private static final double i = .01;
 	private static final double d = 0;
-	private static final double maxRPM = 5;
+	private static final double maxRPM = 5; */
 	private static final double pi = Math.PI;
     public MecanumDrive() {
         // Use requires() here to declare subsystem dependencies
