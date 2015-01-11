@@ -12,7 +12,7 @@ public class SetArmsParallel extends Command {
 
     public SetArmsParallel() {
     	requires(Robot.arms);
-    	requires(Robot.elevator);
+    	//requires(Robot.elevator);
     }
 
     // Called just before this Command runs the first time

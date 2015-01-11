@@ -12,7 +12,7 @@ public class SetArmsOpen extends Command {
 
     public SetArmsOpen() {
     	requires(Robot.arms);
-    	requires(Robot.elevator);
+    	//requires(Robot.elevator);
     }
 
     // Called just before this Command runs the first time

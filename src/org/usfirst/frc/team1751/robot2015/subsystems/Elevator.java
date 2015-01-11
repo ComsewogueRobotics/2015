@@ -1,5 +1,6 @@
 package org.usfirst.frc.team1751.robot2015.subsystems;
 
+import org.usfirst.frc.team1751.robot2015.Robot;
 import org.usfirst.frc.team1751.robot2015.RobotMap;
 import org.usfirst.frc.team1751.robot2015.commands.ElevatorControl;
 
@@ -25,6 +26,13 @@ public class Elevator extends Subsystem {
     	setDefaultCommand(new ElevatorControl());
     }
     public void setMotor(double val){
+    	if(isTop()){
+    		if(val>0)
+    			return;
+    	} else if(isBot()){
+    		if(val<0)
+    			return;
+    	}
     	motor.set(val);
     }
     public boolean isTop(){

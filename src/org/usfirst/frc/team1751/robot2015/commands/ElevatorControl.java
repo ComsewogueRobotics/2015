@@ -22,13 +22,6 @@ public class ElevatorControl extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	double val = Robot.oi.getShootStick().getY();
-    	if(Robot.elevator.isTop()){
-    		if(val>0)
-    			return;
-    	} else if(Robot.elevator.isBot()){
-    		if(val<0)
-    			return;
-    	}
     	Robot.elevator.setMotor(val);
     }
 

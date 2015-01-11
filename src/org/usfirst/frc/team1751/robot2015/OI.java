@@ -1,6 +1,7 @@
 package org.usfirst.frc.team1751.robot2015;
 
 import org.usfirst.frc.team1751.robot2015.commands.*;
+import org.usfirst.frc.team1751.robot2015.triggers.JoystickAnalogButton;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
@@ -36,7 +37,15 @@ public class OI {
 		shoot3.whenPressed(new SetArmsTrash());
 	
 	
-	
+		//DriveStick Buttons:
+		Button povUp = new JoystickAnalogButton(driveStick, 5, .5);
+		povUp.whileHeld(new RaiseElevator());
+		Button povDown = new JoystickAnalogButton(driveStick, 5, -.5);
+		povDown.whileHeld(new LowerElevator());
+		Button povRight = new JoystickAnalogButton(driveStick, 6, .5);
+		povRight.whenPressed(new SetArmsOpen());
+		Button povLeft = new JoystickAnalogButton(driveStick, 6, -.5);
+		povLeft.whenPressed(new SetArmsParallel());
 	
 	
 	
