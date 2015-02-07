@@ -1,13 +1,18 @@
 
 package org.usfirst.frc.team1751.robot2015;
 
-import org.usfirst.frc.team1751.robot2015.commands.AutonomousCommand;
-import org.usfirst.frc.team1751.robot2015.subsystems.*;
+import org.usfirst.frc.team1751.robot2015.commands.TwoToteAuto;
+import org.usfirst.frc.team1751.robot2015.commands.LedRingOn;
+import org.usfirst.frc.team1751.robot2015.subsystems.Arms;
+import org.usfirst.frc.team1751.robot2015.subsystems.Drivetrain;
+import org.usfirst.frc.team1751.robot2015.subsystems.Elevator;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -16,13 +21,16 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
  * creating this project, you must also update the manifest file in the resource
  * directory.
  */
+
 public class Robot extends IterativeRobot {
-
-	public static final Drivetrain drivetrain = new Drivetrain();
-	public static final Arms arms = new Arms();
-	public static final Elevator elevator = new Elevator();
+	static{
+		System.load("/usr/local/lib/lib_OpenCV/java/libopencv_java2410.so");
+	}
+	public static Drivetrain drivetrain;
+	public static Arms arms;
+	public static Elevator elevator;
 	public static OI oi;
-
+	SendableChooser autoChooser;
     Command autonomousCommand;
 
     /**
@@ -30,9 +38,16 @@ public class Robot extends IterativeRobot {
      * used for any initialization code.
      */
     public void robotInit() {
+		drivetrain = new Drivetrain();
+		arms = new Arms();
+		elevator = new Elevator();
 		oi = new OI();
-        // instantiate the command used for the autonomous period
-        autonomousCommand = new AutonomousCommand();
+		SmartDashboard.putData("", new LedRingOn());
+        autoChooser = new SendableChooser();
+        autoChooser.addDefault("Two Tote Autonomous", new TwoToteAuto());
+        autoChooser.addObject("None", null);
+        SmartDashboard.putData("Autonomous:", autoChooser);
+        SmartDashboard.putData(Scheduler.getInstance());
     }
 	
 	public void disabledPeriodic() {
@@ -41,7 +56,9 @@ public class Robot extends IterativeRobot {
 
     public void autonomousInit() {
         // schedule the autonomous command (example)
-        if (autonomousCommand != null) autonomousCommand.start();
+    	autonomousCommand = (Command)autoChooser.getSelected();
+        
+    	if (autonomousCommand != null) autonomousCommand.start();
     }
 
     /**

@@ -1,7 +1,8 @@
 package org.usfirst.frc.team1751.robot2015;
 
-import org.usfirst.frc.team1751.robot2015.commands.*;
-import org.usfirst.frc.team1751.robot2015.triggers.JoystickAnalogButton;
+
+import org.usfirst.frc.team1751.robot2015.commands.CloseAndHoldArms;
+import org.usfirst.frc.team1751.robot2015.commands.OpenArms;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
@@ -22,12 +23,12 @@ public class OI {
 		return shootStick;
 	}
 	public OI(){
-		driveStick = new Joystick(1);
-		driveStick = new Joystick(2);
+		driveStick = new Joystick(0);
+		shootStick = new Joystick(1);
 		
 		
 		//ShootStick buttons:
-		Button shoot4 = new JoystickButton(shootStick, 4);
+	/*	Button shoot4 = new JoystickButton(shootStick, 4);
 		shoot4.whenPressed(new SetArmsParallel());
 		Button shoot5 = new JoystickButton(shootStick, 5);
 		shoot5.whenPressed(new SetArmsLongways());
@@ -36,17 +37,12 @@ public class OI {
 		Button shoot3 = new JoystickButton(shootStick, 3);
 		shoot3.whenPressed(new SetArmsTrash());
 	
-	
-		//DriveStick Buttons:
-		Button povUp = new JoystickAnalogButton(driveStick, 5, .5);
-		povUp.whileHeld(new RaiseElevator());
-		Button povDown = new JoystickAnalogButton(driveStick, 5, -.5);
-		povDown.whileHeld(new LowerElevator());
-		Button povRight = new JoystickAnalogButton(driveStick, 6, .5);
-		povRight.whenPressed(new SetArmsOpen());
-		Button povLeft = new JoystickAnalogButton(driveStick, 6, -.5);
-		povLeft.whenPressed(new SetArmsParallel());
-	
+	*/
+		Button shootTrigger = new JoystickButton(shootStick, 1);
+		shootTrigger.whenPressed(new CloseAndHoldArms());
+		Button shoot2 = new JoystickButton(shootStick, 2);
+		shoot2.whenPressed(new OpenArms());
+		
 	
 	
 	

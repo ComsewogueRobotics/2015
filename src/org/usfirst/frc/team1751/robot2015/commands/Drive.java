@@ -2,26 +2,37 @@ package org.usfirst.frc.team1751.robot2015.commands;
 
 import org.usfirst.frc.team1751.robot2015.Robot;
 
-import edu.wpi.first.wpilibj.Joystick;
+import java.lang.Math;
+
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
  */
-public class MecanumDrive extends Command {
+public class Drive extends Command {
 	private static final int codesPerRev = 360;
 	private static final double p = .2;
 	private static final double i = 0;
 	private static final double d = 0;
 	private static final double maxRPM = 550; 
 	private static final double pi = Math.PI;
-	private static Joystick driveStick;
-    public MecanumDrive() {
+	//private static final double zCorrect = .3;
+	
+	public static final double FORWARD = pi;
+	public static final double RIGHT = -pi/2;
+	public static final double REVERSE = 0;
+	public static final double LEFT = pi/2;
+	
+	private double angle;
+	private double speed;
+    public Drive(double angle, double speed, double time) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	requires(Robot.drivetrain);	
-    	driveStick = Robot.oi.getDriveStick();
+    	requires(Robot.drivetrain);
+    	this.angle = angle;
+    	this.speed = speed;
+    	setTimeout(time);
+    	Robot.drivetrain.resetGyro();
     }
 
     // Called just before this Command runs the first time
@@ -35,18 +46,13 @@ public class MecanumDrive extends Command {
     protected void execute() {
     	//some debug
     	Robot.drivetrain.sendSpeeds();
-    	SmartDashboard.putNumber("Gyro", Robot.drivetrain.getAngle());
-    	SmartDashboard.putNumber("Potentiometer Reading", Robot.arms.getPotVal());
+    	//SmartDashboard.putNumber("Potentiometer Reading", Robot.arms.getPotVal());
     	//SmartDashboard.putNumber("Potentiometer setpoint", Robot.arms.getSetpoint());
-    	//get joystick values
-    	double y = driveStick.getY();
-    	double x = -driveStick.getX();
-    	double z = -driveStick.getZ();
     	//calculate magnitude of vector
-    	double speed = Math.sqrt(Math.pow(y, 2)+Math.pow(x, 2));
+    	double speed = this.speed;
     	//calculate desired angle
-    	double theta = Math.atan2(x, y)/*+Robot.drivetrain.getAngle()*/;   //Uncomment for field-centric
-    	SmartDashboard.putNumber("Joystick angle", theta);
+    	double theta = angle;
+    	double z = 0;//Robot.drivetrain.getAngle()*zCorrect;
     	//calculate voltage multipliers
     	double lf = speed*Math.sin(theta+(pi/4.0))+z;
     	double rf = speed*Math.cos(theta+(pi/4.0))-z;
@@ -75,11 +81,12 @@ public class MecanumDrive extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+        return isTimedOut();
     }
 
     // Called once after isFinished returns true
     protected void end() {
+    	Robot.drivetrain.disable();
     }
 
     // Called when another command which requires one or more of the same

@@ -1,18 +1,18 @@
-
 package org.usfirst.frc.team1751.robot2015.commands;
 
-import edu.wpi.first.wpilibj.command.Command;
-
 import org.usfirst.frc.team1751.robot2015.Robot;
+
+import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
-public class AutonomousCommand extends Command {
+public class ToBottom extends Command {
 
-    public AutonomousCommand() {
+    public ToBottom() {
         // Use requires() here to declare subsystem dependencies
-        requires(Robot.drivetrain);
+        // eg. requires(chassis);
+    	requires(Robot.elevator);
     }
 
     // Called just before this Command runs the first time
@@ -21,19 +21,22 @@ public class AutonomousCommand extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+    	Robot.elevator.setMotors(-.25);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+        return !(Robot.oi.getShootStick().getY()<0)||Robot.elevator.isBot();
     }
 
     // Called once after isFinished returns true
     protected void end() {
+    	Robot.elevator.setMotors(0);
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
+    	end();
     }
 }

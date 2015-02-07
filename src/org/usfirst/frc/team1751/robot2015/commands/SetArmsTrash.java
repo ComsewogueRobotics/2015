@@ -1,6 +1,7 @@
 package org.usfirst.frc.team1751.robot2015.commands;
 
 import org.usfirst.frc.team1751.robot2015.Robot;
+import org.usfirst.frc.team1751.robot2015.RobotMap;
 
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -8,7 +9,7 @@ import edu.wpi.first.wpilibj.command.Command;
  *
  */
 public class SetArmsTrash extends Command {
-	private static final double setpoint = 0;  //SET THIS
+	private static final double setpoint = RobotMap.armsTrash;
 
     public SetArmsTrash() {
     	requires(Robot.arms);

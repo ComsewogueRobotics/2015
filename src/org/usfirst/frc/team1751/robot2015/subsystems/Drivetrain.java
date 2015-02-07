@@ -2,33 +2,55 @@
 package org.usfirst.frc.team1751.robot2015.subsystems;
 
 import org.usfirst.frc.team1751.robot2015.RobotMap;
+//import org.usfirst.frc.team1751.robot2015.commands.CalibrateMode;
 import org.usfirst.frc.team1751.robot2015.commands.MecanumDrive;
 
 import edu.wpi.first.wpilibj.CANJaguar;
 import edu.wpi.first.wpilibj.Gyro;
+import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 
 public class Drivetrain extends Subsystem {
     
-	private static CANJaguar leftFront = new CANJaguar(RobotMap.leftFront);
-	private static CANJaguar leftRear = new CANJaguar(RobotMap.leftRear);
-	private static CANJaguar rightFront = new CANJaguar(RobotMap.rightFront);
-	private static CANJaguar rightRear = new CANJaguar(RobotMap.rightRear);
-	private static Gyro gyro = new Gyro(RobotMap.gyro);
+	private static CANJaguar leftFront;
+	private static CANJaguar leftRear;
+	private static CANJaguar rightFront;
+	private static CANJaguar rightRear;
+	private static Gyro gyro;
+	private Relay ledRing;
 	
+	public Drivetrain(){
+		super();
+		leftFront = new CANJaguar(RobotMap.leftFront);
+		leftRear  = new CANJaguar(RobotMap.leftRear);
+		rightFront = new CANJaguar(RobotMap.rightFront);
+		rightRear = new CANJaguar(RobotMap.rightRear);
+		gyro = new Gyro(RobotMap.gyro);
+		ledRing = new Relay(RobotMap.ledRing);
+	}
 
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
     	setDefaultCommand(new MecanumDrive());
+    	//setDefaultCommand(new CalibrateMode());
+    }
+    public void ledsOn(){
+    	ledRing.set(Relay.Value.kForward);
+    }
+    public void ledsOff(){
+    	ledRing.set(Relay.Value.kOff);
     }
     public double getAngle(){
     	double angle = gyro.getAngle()%360;
     	if(angle<0)
     		return angle+360;
     	return angle;
+    }
+    public void resetGyro(){
+    	gyro.reset();
     }
     public void sendSpeeds(){
     	SmartDashboard.putNumber("Left Front Speed", leftFront.getSpeed());
@@ -42,11 +64,26 @@ public class Drivetrain extends Subsystem {
     	rightFront.setSpeedMode(CANJaguar.kQuadEncoder, codesPerRev, p, i, d);
     	rightRear.setSpeedMode(CANJaguar.kQuadEncoder, codesPerRev, p, i, d);
     }
-    public void setVoltageControl(){
-    	leftFront.setPercentMode();
-    	leftRear.setPercentMode();
-    	rightFront.setPercentMode();
-    	rightRear.setPercentMode();
+    public double getSpeed(int id){
+    	switch(id){
+    	case(1):
+    		return leftFront.getSpeed();
+    	case(2):
+    		return rightFront.getSpeed();
+    	case(3):
+    		return leftRear.getSpeed();
+    	case(4):
+    		return rightRear.getSpeed();
+		default:
+			return (leftFront.getSpeed()+leftRear.getSpeed()+rightFront.getSpeed()+rightRear.getSpeed())/4.0;
+    	}
+    }
+    public void setVoltageControl(int codesPerRev){
+    	
+    	leftFront.setPercentMode(CANJaguar.kQuadEncoder, codesPerRev);
+    	leftRear.setPercentMode(CANJaguar.kQuadEncoder, codesPerRev);
+    	rightFront.setPercentMode(CANJaguar.kQuadEncoder, codesPerRev);
+    	rightRear.setPercentMode(CANJaguar.kQuadEncoder, codesPerRev);
     }
     public void enable(){
     	leftFront.enableControl();
@@ -61,8 +98,8 @@ public class Drivetrain extends Subsystem {
     	rightRear.disableControl();
     }
     public void drive(double lf, double lr, double rf, double rr){
-    	leftFront.set(lf);
-    	leftRear.set(lr);
+    	leftFront.set(-lf);
+    	leftRear.set(-lr);
     	rightFront.set(rf);
     	rightRear.set(rr);
     }

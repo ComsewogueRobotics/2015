@@ -8,12 +8,12 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 /**
  *
  */
-public class ElevatorControl extends Command {
+public class ArmsControl extends Command {
 
-    public ElevatorControl() {
+    public ArmsControl() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	requires(Robot.elevator);
+    	requires(Robot.arms);
     }
 
     // Called just before this Command runs the first time
@@ -22,22 +22,26 @@ public class ElevatorControl extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	//debug
-    	SmartDashboard.putNumber("Driverstick POV", Robot.oi.getDriveStick().getPOV());
-    	SmartDashboard.putBoolean("isTop()", Robot.elevator.isTop());
-    	SmartDashboard.putBoolean("isBot()", Robot.elevator.isBot());
-    	SmartDashboard.putBoolean("isSafety()", Robot.elevator.isSafety());
-    	SmartDashboard.putBoolean("isDoubleTote()", Robot.elevator.isDoubleTote());
-    	if(Robot.oi.getDriveStick().getPOV()==180){
-    		Robot.elevator.setMotors(.75);
+    	SmartDashboard.putBoolean("isClosed()", Robot.arms.isClosed());
+    	SmartDashboard.putBoolean("isOpen()", Robot.arms.isOpen());
+    	/*double in = Robot.oi.getShootStick().getX();
+    	if(in<-.05&&Robot.arms.isClosed()){
+    		Robot.arms.debugSet(-.15);
     		return;
-    	}else if(Robot.oi.getDriveStick().getPOV()==0){
-    		Robot.elevator.setMotors(-.75);
+    	}else if(in>0&&Robot.arms.isOpen()){
+    		Robot.arms.debugSet(0);
     		return;
     	}
-    		
-    	double val = Robot.oi.getShootStick().getY();
-    	Robot.elevator.setMotors(val);
+    	Robot.arms.debugSet(in);*/
+    	if(Robot.oi.getDriveStick().getPOV()==90){
+    		Robot.arms.debugSet(.5);
+    		return;
+    	}else if(Robot.oi.getDriveStick().getPOV()==270){
+    		Robot.arms.debugSet(-.5);
+    		return;
+    	}else{
+    		Robot.arms.debugSet(0);
+    	}
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -47,12 +51,10 @@ public class ElevatorControl extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
-    	Robot.elevator.setMotors(0);
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
-    	end();
     }
 }

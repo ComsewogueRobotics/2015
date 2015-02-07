@@ -1,24 +1,22 @@
 package org.usfirst.frc.team1751.robot2015.commands;
 
 import org.usfirst.frc.team1751.robot2015.Robot;
-import org.usfirst.frc.team1751.robot2015.RobotMap;
 
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
-public class SetArmsLongways extends Command {
-	private static final double setpoint = RobotMap.armsLongways;
+public class LedRingOn extends Command {
 
-    public SetArmsLongways() {
-    	requires(Robot.arms);
-    	//requires(Robot.elevator);
+    public LedRingOn() {
+        // Use requires() here to declare subsystem dependencies
+        // eg. requires(chassis);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.arms.set(setpoint);
+    	Robot.drivetrain.ledsOn();
     }
 
     // Called repeatedly when this Command is scheduled to run

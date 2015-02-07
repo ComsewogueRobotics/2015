@@ -11,12 +11,24 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  *
  */
 public class Elevator extends Subsystem {
-    private DigitalInput top = new DigitalInput(RobotMap.elevTop);
-	private DigitalInput bot = new DigitalInput(RobotMap.elevBot);
-	private DigitalInput mid = new DigitalInput(RobotMap.elevMid);
-    private Talon motor = new Talon(RobotMap.elevatorMotor);
+    private DigitalInput top;
+	private DigitalInput bot;
+	private DigitalInput mid;
+	private DigitalInput nearBot;
+	private DigitalInput safe;
+    private Talon motorL;
+    private Talon motorR;
 	
-	
+	public Elevator(){
+		top = new DigitalInput(RobotMap.elevTop);
+		bot = new DigitalInput(RobotMap.elevBot);
+		mid = new DigitalInput(RobotMap.elevMid);
+		nearBot = new DigitalInput(RobotMap.elevNearBot);
+		safe = new DigitalInput(RobotMap.elevSafety);
+		motorL = new Talon(RobotMap.elevatorMotorL);
+		motorR = new Talon(RobotMap.elevatorMotorR);
+	}
+    
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
 
@@ -25,24 +37,38 @@ public class Elevator extends Subsystem {
         //setDefaultCommand(new MySpecialCommand());
     	setDefaultCommand(new ElevatorControl());
     }
-    public void setMotor(double val){
-    	if(isTop()){
-    		if(val>0)
+    public void setMotors(double val){
+    	
+    	if(isTop()&&val<0){
+    			motorL.set(0);
+    			motorR.set(0);
     			return;
-    	} else if(isBot()){
-    		if(val<0)
+    	} else if((isBot()||isSafety())&&val>0){
+    			motorL.set(0);
+    			motorR.set(0);
     			return;
+    	} else if(val>.75){
+    		motorL.set(.75);
+    		motorR.set(.75);
     	}
-    	motor.set(val);
+    	motorL.set(-val);
+    	motorR.set(val);
+    	//SmartDashboard.putNumber("val", val);
     }
     public boolean isTop(){
-    	return top.get();
+    	return !top.get();
     }
     public boolean isBot(){
-    	return bot.get();
+    	return !bot.get();
+    }
+    public boolean isSafety(){
+    	return !safe.get();
     }
     public boolean isDoubleTote(){
-    	return mid.get();
+    	return !mid.get();
+    }
+    public boolean isNearBot(){
+    	return !nearBot.get();
     }
 }
 
