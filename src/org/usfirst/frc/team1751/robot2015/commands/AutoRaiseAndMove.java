@@ -27,7 +27,7 @@ public class AutoRaiseAndMove extends CommandGroup {
         // a CommandGroup containing them would require both the chassis and the
         // arm.
     	addParallel(new ElevatorToDoubleTote());
-    	addSequential(new Drive(Drive.REVERSE, .5, 1));
+    	addSequential(new Drive(Drive.REVERSE, .65, .9));
     	addSequential(new DriveToTarget());
     }
 }

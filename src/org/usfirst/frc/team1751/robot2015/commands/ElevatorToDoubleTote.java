@@ -22,7 +22,7 @@ public class ElevatorToDoubleTote extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.elevator.setMotors(-.6);
+    	Robot.elevator.setMotors(-.5);
     }
 
     // Make this return true when this Command no longer needs to run execute()

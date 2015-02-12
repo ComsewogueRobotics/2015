@@ -39,6 +39,13 @@ public class ArmsControl extends Command {
     	}else if(Robot.oi.getDriveStick().getPOV()==270){
     		Robot.arms.debugSet(-.5);
     		return;
+    	}
+    	if(Robot.oi.getShootStick().getRawButton(5)){
+    		Robot.arms.debugSet(.5);
+    		return;
+    	}else if(Robot.oi.getShootStick().getRawButton(4)){
+    		Robot.arms.debugSet(-.5);
+    		return;
     	}else{
     		Robot.arms.debugSet(0);
     	}

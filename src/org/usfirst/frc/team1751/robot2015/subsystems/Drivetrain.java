@@ -49,8 +49,14 @@ public class Drivetrain extends Subsystem {
     		return angle+360;
     	return angle;
     }
+    public double getAnglePID(){
+    	return gyro.getAngle();
+    }
     public void resetGyro(){
     	gyro.reset();
+    }
+    public void setGyro(double n){
+    	gyro.setSensitivity(n);
     }
     public void sendSpeeds(){
     	SmartDashboard.putNumber("Left Front Speed", leftFront.getSpeed());

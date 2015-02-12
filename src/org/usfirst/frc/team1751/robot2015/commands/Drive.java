@@ -14,9 +14,9 @@ public class Drive extends Command {
 	private static final double p = .2;
 	private static final double i = 0;
 	private static final double d = 0;
+	private static final double kZ = .03;
 	private static final double maxRPM = 550; 
 	private static final double pi = Math.PI;
-	//private static final double zCorrect = .3;
 	
 	public static final double FORWARD = pi;
 	public static final double RIGHT = -pi/2;
@@ -52,7 +52,7 @@ public class Drive extends Command {
     	double speed = this.speed;
     	//calculate desired angle
     	double theta = angle;
-    	double z = 0;//Robot.drivetrain.getAngle()*zCorrect;
+    	double z = Robot.drivetrain.getAnglePID()*kZ;
     	//calculate voltage multipliers
     	double lf = speed*Math.sin(theta+(pi/4.0))+z;
     	double rf = speed*Math.cos(theta+(pi/4.0))-z;

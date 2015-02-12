@@ -14,6 +14,7 @@ public class CloseAndHoldArms extends Command {
         // eg. requires(chassis);
     	requires(Robot.arms);
     	System.out.println("CloseAndHoldArms()");
+    	setTimeout(1);
     }
 
     // Called just before this Command runs the first time
@@ -22,17 +23,17 @@ public class CloseAndHoldArms extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.arms.debugSet(-.45);
+    	Robot.arms.debugSet(-.55);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return Robot.arms.isClosed();
+        return Robot.arms.isClosed()||isTimedOut();
     }
 
     // Called once after isFinished returns true
     protected void end() {
-    	Robot.arms.debugSet(-.15);
+    	Robot.arms.debugSet(-.25);
     	System.out.println("CloseAndHoldArms ended.");
     }
 

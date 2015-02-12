@@ -35,7 +35,7 @@ public class TwoToteAuto extends CommandGroup {
     	//3)
     	addSequential(new AutoRaiseAndMove());
     	//4)
-    	addSequential(new Drive(Drive.FORWARD, .5, 1 /*time*/));
+    	addSequential(new Drive(Drive.FORWARD, .65, 1));
     	//5)
     	addSequential(new OpenArms());
     	//6)
