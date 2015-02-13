@@ -23,11 +23,11 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class DriveToTarget extends Command {
 	private static final int codesPerRev = 360;
-	private static final double p = .2;
+	private static final double p = 1;
 	private static final double i = 0;
 	private static final double d = 0;
 	private static final double kZ = .003;
-	private static final double maxRPM = 550; 
+	private static final double maxRPM = 145; 
 	private static final double pi = Math.PI;
 	
 	public static final double FORWARD = 0;
@@ -41,7 +41,7 @@ public class DriveToTarget extends Command {
 	private static final double minArea = 1500;
 	private static final double maxArea = 5000;
 	
-	private static final boolean visualize = true;
+	private static final boolean visualize = false;
 	private VideoCapture vcap;
 	
 	private double angle;
@@ -52,7 +52,7 @@ public class DriveToTarget extends Command {
         // eg. requires(chassis);
     	requires(Robot.drivetrain);
     	this.angle = 33*pi/64;
-    	this.speed = .8;
+    	this.speed = 1;
     	
     }
 
@@ -100,6 +100,10 @@ public class DriveToTarget extends Command {
     	//set the values
     	
     	Robot.drivetrain.sendSpeeds();
+    	SmartDashboard.putNumber("Desired Left Front", lf*maxRPM);
+    	SmartDashboard.putNumber("Desired Left Rear", lr*maxRPM);
+    	SmartDashboard.putNumber("Desire Right Front", rf*maxRPM);
+    	SmartDashboard.putNumber("Desired Right Rear", rr*maxRPM);
     	Robot.drivetrain.drive(lf*maxRPM, lr*maxRPM, rf*maxRPM, rr*maxRPM);
     	
     	
