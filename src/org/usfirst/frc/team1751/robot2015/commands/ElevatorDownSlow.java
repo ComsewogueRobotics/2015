@@ -8,9 +8,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 /**
  *
  */
-public class ElevatorControl extends Command {
+public class ElevatorDownSlow extends Command {
 
-    public ElevatorControl() {
+    public ElevatorDownSlow() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	requires(Robot.elevator);
@@ -28,22 +28,18 @@ public class ElevatorControl extends Command {
     	SmartDashboard.putBoolean("isBot()", Robot.elevator.isBot());
     	SmartDashboard.putBoolean("isSafety()", Robot.elevator.isSafety());
     	SmartDashboard.putBoolean("isDoubleTote()", Robot.elevator.isDoubleTote());
-    	SmartDashboard.putBoolean("isLooseSafe()", Robot.elevator.isLooseSafe());
     	if(Robot.oi.getDriveStick().getPOV()==180){
-    		Robot.elevator.setMotors(.75);
-    		return;
-    	}else if(Robot.oi.getDriveStick().getPOV()==0){
-    		Robot.elevator.setMotors(-.75);
+    		Robot.elevator.setMotors(.25);
     		return;
     	}
     		
     	double val = Robot.oi.getShootStick().getY();
-    	Robot.elevator.setMotors(val);
+    	Robot.elevator.setMotors(.5*val);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+        return Robot.oi.getDriveStick().getPOV()==0||Robot.oi.getShootStick().getY()<0;
     }
 
     // Called once after isFinished returns true

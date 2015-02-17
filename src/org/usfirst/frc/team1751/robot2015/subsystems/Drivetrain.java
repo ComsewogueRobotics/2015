@@ -6,6 +6,7 @@ import org.usfirst.frc.team1751.robot2015.RobotMap;
 import org.usfirst.frc.team1751.robot2015.commands.MecanumDrive;
 
 import edu.wpi.first.wpilibj.CANJaguar;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Gyro;
 import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -19,7 +20,8 @@ public class Drivetrain extends Subsystem {
 	private static CANJaguar rightFront;
 	private static CANJaguar rightRear;
 	private static Gyro gyro;
-	private Relay ledRing;
+	private static Relay ledRing;
+	private static DigitalInput atTote;
 	
 	public Drivetrain(){
 		super();
@@ -29,6 +31,7 @@ public class Drivetrain extends Subsystem {
 		rightRear = new CANJaguar(RobotMap.rightRear);
 		gyro = new Gyro(RobotMap.gyro);
 		ledRing = new Relay(RobotMap.ledRing);
+		atTote = new DigitalInput(RobotMap.atTote);
 	}
 
     public void initDefaultCommand() {
@@ -57,6 +60,9 @@ public class Drivetrain extends Subsystem {
     }
     public void setGyro(double n){
     	gyro.setSensitivity(n);
+    }
+    public boolean isAtTote(){
+    	return !atTote.get();
     }
     public void sendSpeeds(){
     	SmartDashboard.putNumber("Left Front Speed", leftFront.getSpeed());
@@ -98,10 +104,11 @@ public class Drivetrain extends Subsystem {
     	rightRear.enableControl();
     }
     public void disable(){
-    	leftFront.disableControl();
+    	/*leftFront.disableControl();
     	leftRear.disableControl();
     	rightFront.disableControl();
-    	rightRear.disableControl();
+    	rightRear.disableControl();*/
+    	drive(0,0,0,0);
     }
     public void drive(double lf, double lr, double rf, double rr){
     	leftFront.set(-lf);

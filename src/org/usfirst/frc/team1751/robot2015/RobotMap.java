@@ -20,10 +20,11 @@ public class RobotMap {
     public static final int elevTop = 0;
     public static final int elevBot = 1;
     public static final int elevMid = 2;
-    public static final int elevNearBot = 3;
+    public static final int atTote = 3;
     public static final int armsClosed = 4;
     public static final int armsOpened = 5;
     public static final int elevSafety = 6;
+    public static final int elevLooseSafety = 7;
     //Relays:
     public static final int swagLights = 0;
     public static final int ledRing = 1;

@@ -39,9 +39,10 @@ public class DriveToTarget extends Command {
 	private static final double upperX = 310;
 	private static final double upperY = 120;
 	private static final double minArea = 1500;
-	private static final double maxArea = 5000;
+	private static final double maxArea = 6000;
 	
 	private static final boolean visualize = false;
+	private static final boolean verbal = false;
 	private VideoCapture vcap;
 	
 	private double angle;
@@ -54,7 +55,6 @@ public class DriveToTarget extends Command {
     	this.angle = 33*pi/64;
     	//this.angle = RIGHT;
     	this.speed = 1.4;
-    	
     }
 
     // Called just before this Command runs the first time
@@ -64,7 +64,6 @@ public class DriveToTarget extends Command {
     	Robot.drivetrain.setGyro(.00767025);
     	Robot.drivetrain.enable();
     	vcap = new VideoCapture();
-    	vcap.open(0, 320, 240, 10);
     	
     }
 
@@ -100,14 +99,14 @@ public class DriveToTarget extends Command {
     	rf/=largest;
     	rr/=largest;
     	//set the values
-    	
+    	if(verbal){
     	Robot.drivetrain.sendSpeeds();
-    	SmartDashboard.putNumber("Desired Left Front", lf*maxRPM);
-    	SmartDashboard.putNumber("Desired Left Rear", lr*maxRPM);
-    	SmartDashboard.putNumber("Desire Right Front", rf*maxRPM);
-    	SmartDashboard.putNumber("Desired Right Rear", rr*maxRPM);
+    		SmartDashboard.putNumber("Desired Left Front", lf*maxRPM);
+    		SmartDashboard.putNumber("Desired Left Rear", lr*maxRPM);
+    		SmartDashboard.putNumber("Desire Right Front", rf*maxRPM);
+    		SmartDashboard.putNumber("Desired Right Rear", rr*maxRPM);
+    	}
     	Robot.drivetrain.drive(lf*maxRPM, lr*maxRPM, rf*maxRPM, rr*maxRPM);
-    	
     	
     }
     
@@ -122,9 +121,11 @@ public class DriveToTarget extends Command {
     	
     	vcap.read(raw);
     	//Convert to grayscale
+    	Highgui.imwrite("/home/lvuser/images/raw.png", raw);
     	Imgproc.cvtColor(raw, gray, Imgproc.COLOR_RGB2GRAY);
+    		
     	//Threshold to filter out anything that isn't bright enough to be target
-    	Imgproc.threshold(gray, inproc, 220, 255, Imgproc.THRESH_BINARY);
+    	Imgproc.threshold(gray, inproc, 225, 255, Imgproc.THRESH_BINARY);
     	//Find the possible targets  
     	if(visualize){
     		/*File output = new File("/home/lvuser/images/output.png");
@@ -145,7 +146,8 @@ public class DriveToTarget extends Command {
     	Imgproc.findContours(inproc, contours, hierarchy, Imgproc.RETR_EXTERNAL, Imgproc.CHAIN_APPROX_SIMPLE);    	
     	//Select the two largest contours, these should be our targets
     	List<MatOfPoint> tmp = new ArrayList<MatOfPoint>();
-    	System.out.println("Number of contours found: "+contours.size());
+    	if(verbal)
+    		System.out.println("Number of contours found: "+contours.size());
     	
     	
 		tmp.addAll(contours);
@@ -173,9 +175,11 @@ public class DriveToTarget extends Command {
     	Point center = new Point();
     	center.x = moments.get_m10()/moments.get_m00();
     	center.y = moments.get_m01()/moments.get_m00();
-    	System.out.println("Largest contour area: "+areaOne);
-    	System.out.println("2nd largest contour area: "+areaTwo);
-    	System.out.println("Centroid point: "+center.toString());
+    	if(verbal){
+    		System.out.println("Largest contour area: "+areaOne);
+    		System.out.println("2nd largest contour area: "+areaTwo);
+    		System.out.println("Centroid point: "+center.toString());
+    	}
     	//visualize
     	if(visualize){
     		/*File contoursF = new File("/home/lvuser/images/contours.png");
@@ -187,7 +191,8 @@ public class DriveToTarget extends Command {
     		Core.circle(inproc, center, 10, new Scalar(255,0,0));
     		Highgui.imwrite("/home/lvuser/images/contours.png", inproc);
     	}
-    	System.out.println("Time taken: "+(Timer.getFPGATimestamp()-startTime));
+    	if(verbal)
+    		System.out.println("Time taken: "+(Timer.getFPGATimestamp()-startTime));
     	//large enough?
     	if(areaOne<minArea||areaTwo<minArea){
     		System.out.println("Targets not big enough.");
@@ -242,7 +247,7 @@ public class DriveToTarget extends Command {
     // Called once after isFinished returns true
     protected void end() {
     	Robot.drivetrain.disable();
-    	vcap.release();
+    	//vcap.release();
     }
 
     // Called when another command which requires one or more of the same

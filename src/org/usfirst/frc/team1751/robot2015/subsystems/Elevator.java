@@ -14,8 +14,9 @@ public class Elevator extends Subsystem {
     private DigitalInput top;
 	private DigitalInput bot;
 	private DigitalInput mid;
-	private DigitalInput nearBot;
+	//private DigitalInput nearBot;
 	private DigitalInput safe;
+	private DigitalInput eLooseSafe;
     private Talon motorL;
     private Talon motorR;
 	
@@ -23,8 +24,9 @@ public class Elevator extends Subsystem {
 		top = new DigitalInput(RobotMap.elevTop);
 		bot = new DigitalInput(RobotMap.elevBot);
 		mid = new DigitalInput(RobotMap.elevMid);
-		nearBot = new DigitalInput(RobotMap.elevNearBot);
+		//nearBot = new DigitalInput(RobotMap.elevNearBot);
 		safe = new DigitalInput(RobotMap.elevSafety);
+		eLooseSafe = new DigitalInput(RobotMap.elevLooseSafety);
 		motorL = new Talon(RobotMap.elevatorMotorL);
 		motorR = new Talon(RobotMap.elevatorMotorR);
 	}
@@ -43,7 +45,7 @@ public class Elevator extends Subsystem {
     			motorL.set(0);
     			motorR.set(0);
     			return;
-    	} else if((isBot()||isSafety())&&val>0){
+    	} else if((isBot()||isSafety()||isLooseSafe())&&val>0){
     			motorL.set(0);
     			motorR.set(0);
     			return;
@@ -67,8 +69,14 @@ public class Elevator extends Subsystem {
     public boolean isDoubleTote(){
     	return !mid.get();
     }
-    public boolean isNearBot(){
-    	return !nearBot.get();
+    public DigitalInput getDoubleTote(){
+    	return mid;
     }
+    public boolean isLooseSafe(){
+    	return !eLooseSafe.get();
+    }
+    /*public boolean isNearBot(){
+    	return !nearBot.get();
+    }*/
 }
 

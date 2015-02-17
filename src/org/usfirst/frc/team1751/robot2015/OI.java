@@ -2,11 +2,14 @@ package org.usfirst.frc.team1751.robot2015;
 
 
 import org.usfirst.frc.team1751.robot2015.commands.CloseAndHoldArms;
+import org.usfirst.frc.team1751.robot2015.commands.ElevatorDownSlow;
 import org.usfirst.frc.team1751.robot2015.commands.OpenArms;
+import org.usfirst.frc.team1751.robot2015.triggers.DIOTrigger;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import edu.wpi.first.wpilibj.buttons.Trigger;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -42,6 +45,10 @@ public class OI {
 		shootTrigger.whenPressed(new CloseAndHoldArms());
 		Button shoot2 = new JoystickButton(shootStick, 2);
 		shoot2.whenPressed(new OpenArms());
+		
+		Trigger almostDown = new DIOTrigger(Robot.elevator.getDoubleTote());
+		almostDown.whenActive(new ElevatorDownSlow());
+		
 		
 	
 	
