@@ -20,9 +20,9 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
  * 10. lift to bottom
  * 11. open arms
  */
-public class TwoToteAuto extends CommandGroup {
+public class ThreeToteAuto extends CommandGroup {
 
-    public TwoToteAuto() {
+    public ThreeToteAuto() {
         // Use requires() here to declare subsystem dependencies
         requires(Robot.drivetrain);
         requires(Robot.arms);
@@ -44,6 +44,22 @@ public class TwoToteAuto extends CommandGroup {
     	addSequential(new CloseAndHoldArms());
     	//8)
     	addSequential(new RaiseElevator(.5, .75));
+    	
+    	//AND AGAIN
+    	addSequential(new AutoRaiseAndMove());
+    	//4)
+    	addSequential(new Drive(Drive.FORWARD, .65, .9));
+    	//5)
+    	addSequential(new OpenArms());
+    	//6)
+    	addSequential(new LowerElevator(3, .75));
+    	//7)
+    	addSequential(new CloseAndHoldArms());
+    	//8)
+    	addSequential(new RaiseElevator(.5, .75));
+    	
+    	//and back
+    	
     	//9)
     	addSequential(new Drive(Drive.REVERSE, 1, 2));
     	//10)

@@ -52,7 +52,8 @@ public class DriveToTarget extends Command {
         // eg. requires(chassis);
     	requires(Robot.drivetrain);
     	this.angle = 33*pi/64;
-    	this.speed = 1;
+    	//this.angle = RIGHT;
+    	this.speed = 1.4;
     	
     }
 
@@ -69,7 +70,8 @@ public class DriveToTarget extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	
+    	if(!vcap.isOpened())
+    		vcap.open(0, 320, 240, 10);
     	//calculate magnitude of vector
     	double speed = this.speed;
     	//calculate desired angle

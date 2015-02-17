@@ -1,8 +1,9 @@
 
 package org.usfirst.frc.team1751.robot2015;
 
-import org.usfirst.frc.team1751.robot2015.commands.TwoToteAuto;
 import org.usfirst.frc.team1751.robot2015.commands.LedRingOn;
+import org.usfirst.frc.team1751.robot2015.commands.ThreeToteAuto;
+import org.usfirst.frc.team1751.robot2015.commands.TwoToteAuto;
 import org.usfirst.frc.team1751.robot2015.subsystems.Arms;
 import org.usfirst.frc.team1751.robot2015.subsystems.Drivetrain;
 import org.usfirst.frc.team1751.robot2015.subsystems.Elevator;
@@ -44,7 +45,8 @@ public class Robot extends IterativeRobot {
 		oi = new OI();
 		SmartDashboard.putData("", new LedRingOn());
         autoChooser = new SendableChooser();
-        autoChooser.addDefault("Two Tote Autonomous", new TwoToteAuto());
+        autoChooser.addDefault("Three Tote Autonomous", new ThreeToteAuto());
+        autoChooser.addObject("Two Tote Autonomous", new TwoToteAuto());
         autoChooser.addObject("None", null);
         SmartDashboard.putData("Autonomous:", autoChooser);
         SmartDashboard.putData(Scheduler.getInstance());
