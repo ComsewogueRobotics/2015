@@ -6,6 +6,7 @@ import org.usfirst.frc.team1751.robot2015.commands.MoveOnlyAuto;
 import org.usfirst.frc.team1751.robot2015.commands.SepToteAndCanAuto;
 import org.usfirst.frc.team1751.robot2015.commands.SingleToteAuto;
 import org.usfirst.frc.team1751.robot2015.commands.ThreeToteAuto;
+import org.usfirst.frc.team1751.robot2015.commands.ToteCanSetAuto;
 import org.usfirst.frc.team1751.robot2015.commands.TwoToteAuto;
 import org.usfirst.frc.team1751.robot2015.subsystems.Arms;
 import org.usfirst.frc.team1751.robot2015.subsystems.Drivetrain;
@@ -49,7 +50,8 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putData("", new LedRingOn());
         autoChooser = new SendableChooser();
         autoChooser.addObject("Three Tote", new ThreeToteAuto());
-        autoChooser.addDefault("Two Tote", new TwoToteAuto());
+        autoChooser.addObject("Two Tote", new TwoToteAuto());
+        autoChooser.addDefault("Tote and Can Set", new ToteCanSetAuto());
         autoChooser.addObject("Separate Tote and Can", new SepToteAndCanAuto());
         autoChooser.addObject("Single Tote", new SingleToteAuto());
         autoChooser.addObject("Move Only", new MoveOnlyAuto());
