@@ -29,10 +29,11 @@ public class MecanumDrive extends Command {
     	Robot.drivetrain.setSpeedControl(codesPerRev, p, i, d);
     	//Robot.drivetrain.setVoltageControl();
     	Robot.drivetrain.enable();
+    	
     }
-
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+    	Robot.arms.swagOn();
     	//some debug
     	Robot.drivetrain.sendSpeeds();
     	SmartDashboard.putNumber("Gyro", Robot.drivetrain.getAngle());

@@ -32,6 +32,7 @@ public class DriveToTote extends Command {
     	this.angle = FORWARD;
     	this.speed = speed;
     	Robot.drivetrain.resetGyro();
+    	Robot.drivetrain.setGyro(.00767025);
     }
 
     // Called just before this Command runs the first time

@@ -27,6 +27,7 @@ public class TwoToteAuto extends CommandGroup {
         requires(Robot.drivetrain);
         requires(Robot.arms);
         requires(Robot.elevator);
+        addSequential(new SwagsOn());
         addSequential(new LedRingOn());
         //1)
     	addSequential(new CloseAndHoldArms());

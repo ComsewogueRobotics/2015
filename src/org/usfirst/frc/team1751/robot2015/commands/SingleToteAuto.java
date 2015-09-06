@@ -24,9 +24,11 @@ public class SingleToteAuto extends CommandGroup {
         // e.g. if Command1 requires chassis, and Command2 requires arm,
         // a CommandGroup containing them would require both the chassis and the
         // arm.
+    	addSequential(new SwagsOn());
     	addSequential(new CloseAndHoldArms());
     	addSequential(new RaiseElevator(2, .65));
-    	addSequential(new Drive(Drive.REVERSE, .65, 3));
+    	addSequential(new Drive(Drive.FORWARD, .35, .5));
+    	addSequential(new Drive(Drive.FORWARD, .65, 4.75));
     	addSequential(new ToBottom());
     	addSequential(new OpenArms());
     }

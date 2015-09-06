@@ -33,6 +33,7 @@ public class Turn extends Command {
     	this.angle = angle;
     	this.speed = speed;
     	Robot.drivetrain.resetGyro();
+    	Robot.drivetrain.setGyro(.00767025);
     }
 
     // Called just before this Command runs the first time

@@ -51,9 +51,9 @@ public class Robot extends IterativeRobot {
         autoChooser = new SendableChooser();
         autoChooser.addObject("Three Tote", new ThreeToteAuto());
         autoChooser.addObject("Two Tote", new TwoToteAuto());
-        autoChooser.addDefault("Tote and Can Set", new ToteCanSetAuto());
+        autoChooser.addObject("Tote and Can Set", new ToteCanSetAuto());
         autoChooser.addObject("Separate Tote and Can", new SepToteAndCanAuto());
-        autoChooser.addObject("Single Tote", new SingleToteAuto());
+        autoChooser.addDefault("Single Tote", new SingleToteAuto());
         autoChooser.addObject("Move Only", new MoveOnlyAuto());
         autoChooser.addObject("None", null);
         SmartDashboard.putData("Autonomous:", autoChooser);
@@ -67,7 +67,6 @@ public class Robot extends IterativeRobot {
     public void autonomousInit() {
         // schedule the autonomous command (example)
     	autonomousCommand = (Command)autoChooser.getSelected();
-        
     	if (autonomousCommand != null) autonomousCommand.start();
     }
 
@@ -91,7 +90,6 @@ public class Robot extends IterativeRobot {
      * You can use it to reset subsystems before shutting down.
      */
     public void disabledInit(){
-
     }
 
     /**

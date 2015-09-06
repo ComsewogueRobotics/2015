@@ -5,6 +5,7 @@ import org.usfirst.frc.team1751.robot2015.Robot;
 import java.lang.Math;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
@@ -23,6 +24,8 @@ public class Drive extends Command {
 	public static final double REVERSE = 0;
 	public static final double LEFT = pi/2;
 	
+	private boolean flag = true;
+	
 	private double angle;
 	private double speed;
     public Drive(double angle, double speed, double time) {
@@ -33,6 +36,7 @@ public class Drive extends Command {
     	this.speed = speed;
     	setTimeout(time);
     	Robot.drivetrain.resetGyro();
+    	Robot.drivetrain.setGyro(.00767025);
     }
 
     // Called just before this Command runs the first time
@@ -45,7 +49,12 @@ public class Drive extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	//some debug
+    	if(flag){
+    		Robot.drivetrain.resetGyro();
+    		flag = false;
+    	}
     	Robot.drivetrain.sendSpeeds();
+    	SmartDashboard.putNumber("Gyro", Robot.drivetrain.getAngle());
     	//SmartDashboard.putNumber("Potentiometer Reading", Robot.arms.getPotVal());
     	//SmartDashboard.putNumber("Potentiometer setpoint", Robot.arms.getSetpoint());
     	//calculate magnitude of vector

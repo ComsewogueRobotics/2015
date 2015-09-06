@@ -25,6 +25,7 @@ public class SepToteAndCanAuto extends CommandGroup {
         // a CommandGroup containing them would require both the chassis and the
         // arm.
     	//addSequential(new RaiseElevator(.75, .2));
+    	addSequential(new SwagsOn());
     	addSequential(new DriveToTote(.4));
     	addSequential(new CloseAndHoldArms());
     	addSequential(new RaiseElevator(2, .7));

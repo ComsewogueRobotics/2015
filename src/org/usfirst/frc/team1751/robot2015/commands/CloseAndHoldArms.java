@@ -23,7 +23,7 @@ public class CloseAndHoldArms extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.arms.debugSet(-.55);
+    	Robot.arms.debugSet(-.7);
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -33,7 +33,7 @@ public class CloseAndHoldArms extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
-    	Robot.arms.debugSet(-.25);
+    	Robot.arms.debugSet(-.45);
     	System.out.println("CloseAndHoldArms ended.");
     }
 

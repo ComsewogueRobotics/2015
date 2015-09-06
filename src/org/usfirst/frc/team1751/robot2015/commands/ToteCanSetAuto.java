@@ -24,10 +24,11 @@ public class ToteCanSetAuto extends CommandGroup {
         // e.g. if Command1 requires chassis, and Command2 requires arm,
         // a CommandGroup containing them would require both the chassis and the
         // arm.
+    	addSequential(new SwagsOn());
     	addSequential(new CloseAndHoldArms());
     	addSequential(new ElevatorToDoubleTote());
-    	//addSequential(new RaiseElevator(.5, .7));  //to raise higher if needed
-    	addSequential(new DriveToTote(.5));
+    	addSequential(new RaiseElevator(1, .8));  //to raise higher if needed
+    	addSequential(new DriveToTote(.6));
     	addSequential(new OpenArms());
     	addSequential(new ToBottom());
     	addSequential(new CloseAndHoldArms());
