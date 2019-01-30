@@ -4,7 +4,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.buttons.Trigger;
 
 /**
- *
+ * This was probably unnecessary, but it essentially wraps a Trigger object around a DIO
  */
 public class DIOTrigger extends Trigger {
     

@@ -23,6 +23,7 @@ public class CalibrateMode extends Command {
     
     // Called just before this Command runs the first time
     protected void initialize() {
+		//Sets some doubles to 0 and the drivetrain to percent control mode
     	Robot.drivetrain.setVoltageControl(360);
     	maxlf = 0;
     	maxrf = 0;
@@ -40,7 +41,8 @@ public class CalibrateMode extends Command {
     	Robot.elevator.setMotors(x);
     	Robot.arms.debugSet(z);
     	SmartDashboard.putNumber("Potentiometer Reading", Robot.arms.getPotVal());
-    	Robot.drivetrain.sendSpeeds();
+		Robot.drivetrain.sendSpeeds();
+		//Um I guess this was to find out the max speeds of things
     	if(Math.abs(Robot.drivetrain.getSpeed(1))>Math.abs(maxlf))
     		maxlf = Math.abs(Robot.drivetrain.getSpeed(1));
     	if(Math.abs(Robot.drivetrain.getSpeed(2))>Math.abs(maxrf))

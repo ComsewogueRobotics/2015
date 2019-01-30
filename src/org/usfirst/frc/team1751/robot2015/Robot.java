@@ -28,13 +28,17 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 
 public class Robot extends IterativeRobot {
+    //This static block instructed the JVM to load the OpenCV library for robot vision
 	static{
 		System.load("/usr/local/lib/lib_OpenCV/java/libopencv_java2410.so");
-	}
+    }
+    //Robot subsystems
 	public static Drivetrain drivetrain;
 	public static Arms arms;
 	public static Elevator elevator;
-	public static OI oi;
+    public static OI oi;
+
+    //SmartDashboard widget that drivers use to specify the desired autonomous mode
 	SendableChooser autoChooser;
     Command autonomousCommand;
 
@@ -43,11 +47,15 @@ public class Robot extends IterativeRobot {
      * used for any initialization code.
      */
     public void robotInit() {
+        //initialize subsystems
 		drivetrain = new Drivetrain();
 		arms = new Arms();
 		elevator = new Elevator();
-		oi = new OI();
-		SmartDashboard.putData("", new LedRingOn());
+        oi = new OI();
+        
+        //Put command to turn on the LED ring (for camera)
+        SmartDashboard.putData("", new LedRingOn());
+        //initialize autonomous mode chooser widget
         autoChooser = new SendableChooser();
         autoChooser.addObject("Three Tote", new ThreeToteAuto());
         autoChooser.addObject("Two Tote", new TwoToteAuto());
@@ -57,6 +65,7 @@ public class Robot extends IterativeRobot {
         autoChooser.addObject("Move Only", new MoveOnlyAuto());
         autoChooser.addObject("None", null);
         SmartDashboard.putData("Autonomous:", autoChooser);
+        //Put data about the running commands from the Scheduler onto the dashboard
         SmartDashboard.putData(Scheduler.getInstance());
     }
 	

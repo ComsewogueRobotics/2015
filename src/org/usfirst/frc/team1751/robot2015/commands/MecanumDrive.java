@@ -11,16 +11,17 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class MecanumDrive extends Command {
 	private static final int codesPerRev = 360;
-	private static final double p = .2;
-	private static final double i = 0;
-	private static final double d = 0;
-	private static final double maxRPM = 550; 
-	private static final double pi = Math.PI;
+	private static final double p = .2; //here
+	private static final double i = 0;  //be
+	private static final double d = 0;  //dragons
+	private static final double maxRPM = 550; //from the mysterious CalibrateMode perhaps?
+	private static final double pi = Math.PI; //WHY?
 	private static Joystick driveStick;
     public MecanumDrive() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	requires(Robot.drivetrain);	
+		requires(Robot.drivetrain);	
+		//keep a nice copy of the driver controller for convenience
     	driveStick = Robot.oi.getDriveStick();
     }
 
@@ -42,19 +43,24 @@ public class MecanumDrive extends Command {
     	//SmartDashboard.putNumber("Potentiometer setpoint", Robot.arms.getSetpoint());
     	//get joystick values
     	double y = driveStick.getY();
-    	double x = -driveStick.getX();
-    	double z = -driveStick.getZ();
+    	double x = -driveStick.getX(); //negated because im stupid and put the wheels on wrong  \/ who       which
+    	double z = -driveStick.getZ(); //negated because of the way the joystick reports +/-    ^^     knows
     	//calculate magnitude of vector
     	double speed = Math.sqrt(Math.pow(y, 2)+Math.pow(x, 2));
     	//calculate desired angle
-    	double theta = Math.atan2(x, y)/*+Robot.drivetrain.getAngle()*/;   //Uncomment for field-centric
+		double theta = Math.atan2(x, y)/*+Robot.drivetrain.getAngle()*/;   //Uncomment for field-centric
+		
+		/**	
+		 * We did not use field-centric driving because the gyro drifts constantly based on
+		 * the difference in battery voltage 
+		 */
     	SmartDashboard.putNumber("Joystick angle", theta);
     	//calculate voltage multipliers
     	double lf = speed*Math.sin(theta+(pi/4.0))+z;
     	double rf = speed*Math.cos(theta+(pi/4.0))-z;
     	double lr = speed*Math.cos(theta+(pi/4.0))+z;
     	double rr = speed*Math.sin(theta+(pi/4.0))-z;
-    	
+    	//this is like, vector normalization or something  <-- i made that term up
     	//make sure all values are within [-1,1]
     	double largest = 1;
     	if(Math.abs(lf)>largest)

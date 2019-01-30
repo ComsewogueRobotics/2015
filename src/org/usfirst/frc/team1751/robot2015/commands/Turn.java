@@ -45,7 +45,7 @@ public class Turn extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	double z = -(angle-Robot.drivetrain.getAnglePID())*kZ*speed;
+    	double z = -(angle-Robot.drivetrain.getAnglePID())*kZ*speed; //?
     	SmartDashboard.putNumber("z", z);
     	//calculate voltage multipliers
     	double lf = z;

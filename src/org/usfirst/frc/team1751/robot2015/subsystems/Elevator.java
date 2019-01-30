@@ -25,8 +25,10 @@ public class Elevator extends Subsystem {
 		bot = new DigitalInput(RobotMap.elevBot);
 		mid = new DigitalInput(RobotMap.elevMid);
 		//nearBot = new DigitalInput(RobotMap.elevNearBot);
+		//no idea what these were
 		safe = new DigitalInput(RobotMap.elevSafety);
 		eLooseSafe = new DigitalInput(RobotMap.elevLooseSafety);
+		//elevator control motors (our first talons I think)
 		motorL = new Talon(RobotMap.elevatorMotorL);
 		motorR = new Talon(RobotMap.elevatorMotorR);
 	}
@@ -74,7 +76,8 @@ public class Elevator extends Subsystem {
     }
     public boolean isLooseSafe(){
     	return !eLooseSafe.get();
-    }
+	}
+	// ??
     /*public boolean isNearBot(){
     	return !nearBot.get();
     }*/

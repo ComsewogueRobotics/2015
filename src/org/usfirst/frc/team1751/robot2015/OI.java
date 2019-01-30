@@ -45,7 +45,8 @@ public class OI {
 		shootTrigger.whenPressed(new CloseAndHoldArms());
 		Button shoot2 = new JoystickButton(shootStick, 2);
 		shoot2.whenPressed(new OpenArms());
-		
+		//Custom trigger based on a DIO switch, in this case a magnetic switch near the bottom of the elevator
+		//It interrupts the ElevatorControl command from the joystick Y axis with a similar command at a slower speed
 		Trigger almostDown = new DIOTrigger(Robot.elevator.getDoubleTote());
 		almostDown.whenActive(new ElevatorDownSlow());
 		
